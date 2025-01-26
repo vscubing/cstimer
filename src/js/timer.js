@@ -41,7 +41,11 @@ var timer = execMain(function(regListener, regProp, getProp, pretty, ui, pushSig
 		lcd.renderUtil();
 		lcd.fixDisplay(false, true);
 	}
+
     window._resetTimer = function() {
+		curTime = [];
+		lastTime = [];
+		rawMoves = [];
 		reset()
 		lcd.val(undefined)
 	};
@@ -1040,7 +1044,7 @@ var timer = execMain(function(regListener, regProp, getProp, pretty, ui, pushSig
 					rawMoves.reverse();
 
 					const reconstruction = $.map(rawMoves, cubeutil.moveSeq2str).filter($.trim).join(' ')
-					pushSignal('time', ["", 0, curTime, 0, [reconstruction, curPuzzle, moveCnt]]);
+					// pushSignal('time', ["", 0, curTime, 0, [reconstruction, curPuzzle, moveCnt]]);
 					if (curTime[0] === -1) {
 						pushSignal('vs-time', { isDnf: true })
 					} else {
@@ -1173,17 +1177,17 @@ var timer = execMain(function(regListener, regProp, getProp, pretty, ui, pushSig
 					isReseted = false;
 					reset();
 				}
-				var m = value[0].match(/^r(\d)\d*$/);
-				if (m) {
-					relayScrs = curScramble.split('\n');
-					if (curScrSize != ~~m[1]) {
-						curScrSize = ~~m[1];
-						isReseted = false;
-						reset();
-					}
-				} else {
-					relayScrs = null;
-				}
+				// var m = value[0].match(/^r(\d)\d*$/);
+				// if (m) {
+				// 	relayScrs = curScramble.split('\n');
+				// 	if (curScrSize != ~~m[1]) {
+				// 		curScrSize = ~~m[1];
+				// 		isReseted = false;
+				// 		reset();
+				// 	}
+				// } else {
+				// 	relayScrs = null;
+				// }
 			}
 		}
 

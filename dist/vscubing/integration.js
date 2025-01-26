@@ -33,13 +33,15 @@ const api = (function () {
     });
   }
 
-  function importScramble(str) {
+  function importScramble({ scramble, discipline }) {
     window._resetTimer();
-    kernel.pushSignal("scramble", ["333", str]);
+    kernel.pushSignal("scramble", [DISCIPLINE_MAP[discipline], scramble]);
 
     window.focus();
     kernel.blur();
   }
+
+  const DISCIPLINE_MAP = { "3by3": "333", "2by2": "222so" };
 
   return {
     regReadyListener,
@@ -80,7 +82,7 @@ window.addEventListener(
     const { event, payload } = message.data;
     if (event === "initSolve") {
       getOrCreateStartHint().style.visibility = "visible";
-      api.importScramble(payload.scramble);
+      api.importScramble(payload);
     }
     if (event === "abortSolve") {
       window._resetTimer();
@@ -88,10 +90,21 @@ window.addEventListener(
     if (event === "settings") {
       const { settings } = payload;
       window.kernel.setProp("vrcSpeed", settings.csAnimationDuration);
+      console.log(VOICE_INS_MAP[settings.csInspectionVoiceAlert]);
+      window.kernel.setProp(
+        "voiceIns",
+        VOICE_INS_MAP[settings.csInspectionVoiceAlert],
+      );
     }
   },
   false,
 );
+
+const VOICE_INS_MAP = {
+  None: "n",
+  Male: "1",
+  Female: "2",
+};
 
 function getOrCreateStartHint() {
   const existingStartHint = document.querySelector("#vs-start-hint");
