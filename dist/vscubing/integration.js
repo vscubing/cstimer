@@ -89,11 +89,10 @@ window.addEventListener(
     }
     if (event === "settings") {
       const { settings } = payload;
-      window.kernel.setProp("vrcSpeed", settings.csAnimationDuration);
-      console.log(VOICE_INS_MAP[settings.csInspectionVoiceAlert]);
+      window.kernel.setProp("vrcSpeed", settings.cstimerAnimationDuration);
       window.kernel.setProp(
         "voiceIns",
-        VOICE_INS_MAP[settings.csInspectionVoiceAlert],
+        VOICE_INS_MAP[settings.cstimerInspectionVoiceAlert],
       );
     }
   },
