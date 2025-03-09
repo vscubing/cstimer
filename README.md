@@ -1,4 +1,4 @@
-# Forked by [@vscubing](https://github.com/vscubing/)
+# Forked by [@vscubing](https://github.com/vscubing/) to power the solve simulator
 
 Run `make` to build. Run `php -S 127.0.0.1:8081 -t dist` to serve.
 
