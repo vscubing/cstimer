@@ -1,4 +1,6 @@
 const api = (function () {
+  let _scramble = "";
+
   function regReadyListener(callback) {
     if (window._vsReady) {
       callback(); // workaround in case integration.js runs after the signal is pushed
@@ -12,6 +14,15 @@ const api = (function () {
       "api",
       "vs-time",
       (_, { isDnf, timeMs, reconstruction: csReconstruction }) => {
+        const shareUrl = new URL(
+          "?vrcreplay=" +
+            LZString.compressToEncodedURIComponent(
+              JSON.stringify([_scramble, csReconstruction, "333"]),
+            ),
+          location,
+        ).toString();
+        console.log(shareUrl);
+
         if (isDnf) {
           callback({ isDnf: true });
         } else {
@@ -34,6 +45,7 @@ const api = (function () {
   }
 
   function importScramble({ scramble, discipline }) {
+    _scramble = scramble;
     window._resetTimer();
     kernel.pushSignal("scramble", [DISCIPLINE_MAP[discipline], scramble]);
 
