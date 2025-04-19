@@ -1,4 +1,6 @@
-# Forked by [@vscubing](https://github.com/vscubing/) to power the solve simulator
+# LEGACY: Forked by [@vscubing](https://github.com/vscubing/) to power the solve simulator
+
+NOTE: Now we use a "phpless" version that includes just the virtual cube logic from cstimer: https://github.com/vscubing/vscubing-next/tree/main/vendor/cstimer.
 
 Run `make` to build. Run `php -S 127.0.0.1:8081 -t dist` to serve.
 
